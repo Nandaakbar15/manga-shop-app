@@ -1,0 +1,58 @@
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Tambah Contact</h4>
+    <% if (typeof errors != 'undefined') { %>
+    <div class="alert alert-danger" role="alert">
+      <ul>
+        <% errors.forEach(error => { %>
+        <li><%= error.msg %></li>
+        <% }) %>
+      </ul>
+    </div>
+    <% } %>
+    <form class="forms-sample" action="/addContact" method="post">
+      <div class="form-group">
+        <label for="nama">Nama</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nama"
+          name="nama"
+          placeholder="Nama"
+        />
+      </div>
+      <div class="form-group">
+        <label for="alamat">Alamat</label>
+        <input
+          type="text"
+          class="form-control"
+          id="alamat"
+          name="alamat"
+          placeholder="Alamat"
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="text"
+          class="form-control"
+          id="email"
+          name="email"
+          placeholder="Email"
+        />
+      </div>
+      <div class="form-group">
+        <label for="notelp">Nomor HP / Telepon</label>
+        <input
+          type="text"
+          class="form-control"
+          id="notelp"
+          name="notelp"
+          placeholder="notelp"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary me-2">Tambah!</button>
+      <a href="/datacontact" class="btn btn-ligt">Kembali</a>
+    </form>
+  </div>
+</div>

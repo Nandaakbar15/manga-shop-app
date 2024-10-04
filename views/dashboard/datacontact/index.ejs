@@ -1,0 +1,54 @@
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Data Contact</h4>
+    <a href="/tambahcontact" class="btn btn-primary">Tambah Contact</a>
+
+    <% if (msg.length !== 0) { %>
+    <div class="alert alert-success" role="alert"><%= msg; %></div>
+    <% } %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Alamat</th>
+            <th>Email</th>
+            <th>Nomor HP</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% contact.forEach(data => { %>
+          <tr>
+            <td><%= data.nama %></td>
+            <td><%= data.alamat %></td>
+            <td><%= data.email %></td>
+            <td><%= data.notelp %></td>
+            <td>
+              <a
+                href="/datacontact/ubah/<%= data.nama %>"
+                class="btn btn-info badge"
+                >Ubah</a
+              >
+              <form
+                action="/datacontact/delete/<%= data.id %>?_method=DELETE"
+                method="POST"
+                class="d-inline"
+              >
+                <input type="hidden" name="nama" value="<%= data.nama %>" />
+                <button
+                  type="submit"
+                  class="btn btn-danger badge"
+                  onclick="return confirm('Yakin mau hapus data ini?')"
+                >
+                  hapus
+                </button>
+              </form>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

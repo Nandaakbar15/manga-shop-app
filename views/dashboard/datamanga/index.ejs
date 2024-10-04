@@ -1,0 +1,61 @@
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Data Manga</h4>
+    <a href="/tambahmanga" class="btn btn-primary">Tambah Manga</a>
+    <% if (msg.length !== 0) { %>
+    <div class="alert alert-success" role="alert"><%= msg; %></div>
+    <% } %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Judul Manga</th>
+            <th>Genre</th>
+            <th>Author</th>
+            <th>Status</th>
+            <th>Gambar</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% manga.forEach(data => { %>
+          <tr>
+            <td><%= data.judul %></td>
+            <td><%= data.genre %></td>
+            <td><%= data.author %></td>
+            <td><%= data.status %></td>
+            <td>
+              <img
+                src="/images/<%= data.gambar %>"
+                alt="<%= data.judul %>"
+                style="width: 100px; height: 100px; object-fit: cover"
+              />
+            </td>
+            <td>
+              <a
+                href="/datamanga/edit/<%= data.judul %>"
+                class="btn btn-info badge"
+                >Ubah</a
+              >
+              <form
+                action="/datamanga/delete?_method=DELETE"
+                method="POST"
+                class="d-inline"
+              >
+                <input type="hidden" name="judul" value="<%= data.judul %>" />
+                <button
+                  type="submit"
+                  class="btn btn-danger badge"
+                  onclick="return confirm('Yakin mau hapus data ini?')"
+                >
+                  hapus
+                </button>
+              </form>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

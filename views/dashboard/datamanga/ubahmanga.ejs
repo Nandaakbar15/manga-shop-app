@@ -1,0 +1,94 @@
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Ubah Manga</h4>
+    <form
+      class="forms-sample"
+      action="/datamanga/edit/<%= manga.id %>?_method=PUT"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <div class="form-group">
+        <label for="judul">Judul Manga</label>
+        <input
+          type="text"
+          class="form-control"
+          id="judul"
+          name="judul"
+          placeholder="Judul Manga"
+          value="<%= manga.judul %>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="genre">Genre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="genre"
+          name="genre"
+          placeholder="Genre"
+          value="<%= manga.genre %>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="author">Author</label>
+        <input
+          type="text"
+          class="form-control"
+          id="author"
+          name="author"
+          placeholder="Author Manga"
+          value="<%= manga.author %>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="status">Status</label>
+        <input
+          type="text"
+          class="form-control"
+          id="status"
+          name="status"
+          placeholder="status"
+          value="<%= manga.status %>"
+        />
+      </div>
+      <div class="form-group">
+        <% if (manga.gambar) { %>
+        <img
+          src="/images/<%= manga.gambar %>"
+          alt="<%= manga.judul %>"
+          style="width: 100px; height: 100px; object-fit: cover"
+        />
+        <% } %>
+        <div class="img-preview">
+          <label for="status">Gambar</label>
+          <input
+            type="file"
+            class="form-control"
+            id="gambar"
+            name="gambar"
+            placeholder="gambar"
+            value="<%= manga.gambar %>"
+            onchange="previewImage()"
+          />
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary me-2">Ubah!</button>
+      <a href="/datamanga" class="btn btn-ligt">Kembali</a>
+    </form>
+  </div>
+</div>
+<script text="text/javascript">
+  function previewImage() {
+    const foto = document.querySelector("#gambar");
+    const imgPreview = document.querySelector(".img-preview");
+
+    imgPreview.style.display = "block";
+
+    const oFReader = new FileReader();
+    oFReader.readAsDataURL(foto.files[0]);
+
+    oFReader.onload = function (oFREvent) {
+      imgPreview.src = oFREvent.target.result;
+    };
+  }
+</script>
