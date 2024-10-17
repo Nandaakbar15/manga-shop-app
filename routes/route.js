@@ -77,16 +77,7 @@ router.get("/register", (req, res) => {
 });
 
 // logic register
-router.post("/register", async (req, res) => {
-  try {
-    await register(req, res);
-    req.flash("msg", "Register berhasil! Silahkan login");
-    res.redirect("/login");
-  } catch (error) {
-    console.error("Failed to register!", error);
-    res.status(404).send("Failed to register!");
-  }
-});
+router.post("/register", register);
 
 // halaman home untuk admin
 router.get("/admin", (req, res) => {
@@ -239,6 +230,70 @@ router.delete("/datacontact/delete/:id", async (req, res) => {
   } catch (error) {
     console.error("Failed to delete the data!", error);
     res.status(404).send("Gagal menghapus data!");
+  }
+});
+
+// route untuk pelanggan
+router.get("/pelanggan/dashboardpelanggan", (req, res) => {
+  res.render("dashboardpelanggan/layouts/home", {
+    title: "Tatsuya Manga Shop",
+    layout: "dashboardpelanggan/layouts/main",
+  });
+});
+
+// halaman daftar manga
+router.get("/pelanggan/daftarmanga", async (req, res) => {
+  const manga = await getManga();
+  try {
+    res.render("dashboardpelanggan/listmanga/viewlistmanga", {
+      title: "Daftar Manga",
+      layout: "dashboardpelanggan/layouts/main",
+      manga,
+    });
+  } catch (error) {
+    console.error("Failed to fetch the data!", error);
+    res.status(404).send("Gagal mengambil data manga!");
+  }
+});
+
+// halaman detail manga
+router.get("/pelanggan/detailmanga/:judul", async (req, res) => {
+  try {
+    const manga = await showManga(req.params.judul);
+    if (!manga) {
+      return res.status(404).send("Manga not found!"); // Handle the case where manga is null
+    }
+    res.render("dashboardpelanggan/listmanga/detailmanga", {
+      title: "Detail Manga",
+      layout: "dashboardpelanggan/layouts/main",
+      manga,
+    });
+  } catch (error) {
+    console.error("Failed to fetch the data!", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// halaman about
+router.get("/pelanggan/about", (req, res) => {
+  res.render("dashboardpelanggan/layouts/about", {
+    layout: "dashboardpelanggan/layouts/main",
+    title: "Tentang Tatsuya Manga Shop",
+  });
+});
+
+// halaman contact
+router.get("/pelanggan/contact", async (req, res) => {
+  const contact = await getContact();
+  try {
+    res.render("dashboardpelanggan/contacts/viewcontact", {
+      title: "Halaman Kontak",
+      layout: "dashboardpelanggan/layouts/main",
+      contact,
+    });
+  } catch (error) {
+    res.status(404).send("Gagal mengambil data contact!");
+    console.error("Failed to fetch the data!", error);
   }
 });
 

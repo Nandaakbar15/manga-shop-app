@@ -18,7 +18,7 @@ exports.getManga = async () => {
 // get manga by id
 exports.showManga = async (judul) => {
   try {
-    const getMangabyId = Manga.findOne({ judul: judul });
+    const getMangabyId = await Manga.findOne({ judul: judul });
     if (!getMangabyId) {
       console.log("No manga with name " + judul + " found!");
     }
