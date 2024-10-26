@@ -1,0 +1,12 @@
+<% contact.forEach(data => { %>
+<div class="card" style="width: 18rem; margin-bottom: 1rem">
+  <img src="..." class="card-img-top" alt="..." />
+  <div class="card-body">
+    <h5 class="card-title"><%= data.nama %></h5>
+    <p class="card-text"><%= data.email %></p>
+    <p class="card-text"><%= data.alamat %></p>
+    <p class="card-text"><%= data.notelp %></p>
+    <a href="/pelanggan/dashboardpelanggan" class="btn btn-primary">Kembali</a>
+  </div>
+</div>
+<% }) %>
